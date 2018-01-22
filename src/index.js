@@ -1,5 +1,5 @@
 import { statSync, readFileSync, writeFileSync, readdirSync, unlinkSync } from 'fs';
-import { relative, basename, sep as pathSeperator } from 'path';
+import { relative, basename, sep as pathSeperator, join } from 'path';
 import hasha from 'hasha';
 // import cheerio from 'cheerio';
 const cheerio = require('cheerio');
@@ -25,8 +25,8 @@ function isURL(url){
 }
 
 export default (opt = {}) => {
-	const { template, filename, externals, inject } = opt;
-
+	const { template, filename, externals, inject, publicPath } = opt;
+	let destFile = opt.destFile
 	return {
 		name: 'html',
 		onwrite(config, data) {
@@ -38,7 +38,7 @@ export default (opt = {}) => {
 			// relative('./', dest) will not be equal to dest when dest is a absolute path
 			const destPath = relative('./', file);
 			const firstDir = destPath.slice(0, destPath.indexOf(pathSeperator));
-			const destFile = `${firstDir}/${filename || basename(template)}`;
+			destFile = destFile || (`${firstDir}/${filename || basename(template)}`);
 
 			traverse(firstDir, fileList);
 
@@ -72,8 +72,12 @@ export default (opt = {}) => {
 					writeFileSync(file, code);
 				}
 
-				const src = isURL(file) ? file : relative(firstDir, file);
-
+				let src;
+				if (publicPath) {
+					src = join(publicPath, `${basename(file)}`);
+				} else {
+					src	= isURL(file) ? file : relative(firstDir, file);
+				}
 				if (type === 'js') {
 					const script = `<script type="text/javascript" src="${src}"></script>\n`;
 					// node.inject will cover the inject
