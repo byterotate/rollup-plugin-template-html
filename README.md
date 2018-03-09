@@ -1,5 +1,7 @@
 # rollup-plugin-fill-html
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lucker2046/rollup-plugin-template-html.svg)](https://greenkeeper.io/)
+
 Fill the html template with the bundle js..
 
 ## Note
