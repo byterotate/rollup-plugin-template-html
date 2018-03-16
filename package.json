@@ -1,12 +1,12 @@
 {
   "name": "rollup-plugin-template-html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "fill html with the bundle file",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "repository": "https://github.com/lucker2046/rollup-plugin-template-html.git",
   "bugs": "https://github.com/lucker2046/rollup-plugin-template-html.git/issues",
-  "author": "alwaysolinetxm",
+  "author": "lucker2.0",
   "license": "MIT",
   "files": [
     "src",

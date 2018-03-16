@@ -1,5 +1,5 @@
 import { statSync, readFileSync, writeFileSync, readdirSync, unlinkSync } from 'fs';
-import { relative, basename, sep as pathSeperator, join } from 'path';
+import { relative, basename, join, dirname } from 'path';
 import hasha from 'hasha';
 // import cheerio from 'cheerio';
 const cheerio = require('cheerio');
@@ -37,7 +37,7 @@ export default (opt = {}) => {
 			const fileList = [];
 			// relative('./', dest) will not be equal to dest when dest is a absolute path
 			const destPath = relative('./', file);
-			const firstDir = destPath.slice(0, destPath.indexOf(pathSeperator));
+			const firstDir = dirname(destPath)
 			destFile = destFile || (`${firstDir}/${filename || basename(template)}`);
 
 			traverse(firstDir, fileList);
